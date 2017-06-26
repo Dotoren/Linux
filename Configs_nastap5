@@ -1,0 +1,8 @@
+
+
+op de master (hoofdserver) doe het volgende:
+
+nano /etc/salt/master
+
+# weghalen bij interface en static IP invoeren van master
+# weghalen bij ports

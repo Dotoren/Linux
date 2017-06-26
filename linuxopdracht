@@ -63,8 +63,7 @@ verwijderen van # bij:
 #htmldir /var/cache/munin/www
 #logdir /var/log/munin
 #rundir /var/run/munin
-
-EN bij #tmpldir /etc/munin/templates
+#tmpldir /etc/munin/templates
 
 =========================================
 
@@ -148,3 +147,23 @@ nano /etc/salt/minion
 
 # weghalen bij interface en static ip invoeren van master
 # weghalen bij ports
+
+
+=================================================
+
+INSTALLING DOCKER ON MASTER
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+sudo apt-get update
+
+apt-cache policy docker-ce
+
+sudo apt-get install -y docker-ce
+
+sudo systemctl status docker
+
+--------------------------
+

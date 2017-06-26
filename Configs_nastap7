@@ -1,0 +1,6 @@
+Minion configuration
+
+nano /etc/salt/minion
+
+# weghalen bij interface en static ip invoeren van master
+# weghalen bij ports
