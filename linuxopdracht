@@ -1,0 +1,150 @@
+STAP 1 // https://www.howtoforge.com/tutorial/server-monitoring-with-munin-and-monit-on-ubuntu-16-04-lts/
+====================
+
+check of ik root user ben:
+
+sudo su
+
+==============================================================
+Hostname opvragen en host+IP schrijven naar /etc/hosts met script hostname.sh:
+
+nano hostname.sh
+
+#!/bin/bash
+HST="$(hostname)" 
+sed -i "/127.0.0.1/ a\127.0.0.1 $HST" /etc/hosts		
+===========================================================
+
+Checken of systeem up-to-date is met: 
+
+apt-get update
+apt-get upgrade
+
+==============================================================
+
+installeren van apache:
+
+apt-get -y install apache2 libcgi-fast-perl libapache2-mod-fcgid
+
+==============================================================
+
+Enable van fcgif module in apache (is al enabled):
+
+a2enmod fcgid 
+
+==============================================================
+
+STAP 2 - Install en configureren van munin
+
+===============================================================
+
+Installeren van munin op ubuntu 16.04:
+
+apt-get -y install munin munin-node munin-plugins-extra
+
+==============================================================
+
+Plugins voor Mysql/mariadb (voor het geval een database op de server komt):
+
+cd /etc/munin/plugins
+ln -s /usr/share/munin/plugins/mysql_ mysql_
+ln -s /usr/share/munin/plugins/mysql_bytes mysql_bytes
+ln -s /usr/share/munin/plugins/mysql_queries mysql_queries
+ln -s /usr/share/munin/plugins/mysql_slowqueries mysql_slowqueries
+ln -s /usr/share/munin/plugins/mysql_threads mysql_threads
+
+=================================================================
+
+in nano /etc/munin/munin.conf :
+
+verwijderen van # bij:
+
+#dbdir /var/lib/munin
+#htmldir /var/cache/munin/www
+#logdir /var/log/munin
+#rundir /var/run/munin
+
+EN bij #tmpldir /etc/munin/templates
+
+=========================================
+
+edit munin.conf om apache toegang te geven van ext. ip - MAAK BACKUP van orginele file:
+
+mv /etc/munin/apache24.conf /etc/munin/apache24.conf_bak
+
+==============================================
+
+open de file met:
+
+nano /etc/munin/apache24.conf
+
+en plak het volgende erin:
+
+Alias /munin /var/cache/munin/www
+<Directory /var/cache/munin/www>
+ # Require local
+ Require all granted
+ Options FollowSymLinks SymLinksIfOwnerMatch
+ Options None
+</Directory>
+
+ScriptAlias /munin-cgi/munin-cgi-graph /usr/lib/munin/cgi/munin-cgi-graph
+<Location /munin-cgi/munin-cgi-graph>
+ # Require local
+ Require all granted
+ Options FollowSymLinks SymLinksIfOwnerMatch
+ <IfModule mod_fcgid.c>
+ SetHandler fcgid-script
+ </IfModule>
+ <IfModule !mod_fcgid.c>
+ SetHandler cgi-script
+ </IfModule>
+</Location>
+
+==============================================
+
+RESTART APACHE:
+
+service apache2 restart
+
+RESTART MUNIN:
+
+service munin-node restart
+
+===============================================
+
+INSTALL SYSLOG-NG
+
+sudo apt-get update
+sudo apt-get install syslog-ng
+
+===============================================
+
+INSTALL PACKAGES FOR SALTSTACK OP HOOFDSERVER
+
+apt-get install salt-master
+apt-get install salt-minion
+
+===============================================
+
+Master configuration:
+
+nano /etc/salt/master
+
+# weghalen bij interface en static IP invoeren van master
+# weghalen bij ports
+
+=================================================
+
+INSTALLING PACKAGES FOR SALTSTACK OP MINION
+
+apt-get install salt-minion
+
+=================================================
+
+Minion configuration
+
+nano /etc/salt/minion
+
+# weghalen bij interface en static ip invoeren van master
+# weghalen bij ports
