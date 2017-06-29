@@ -1,6 +1,9 @@
 #!/bin/bash
 
-#installeren van munin
-apt-get -y install munin munin-node munin-plugins-extra
+#RESTART APACHE:
 
+service apache2 restart
 
+#RESTART MUNIN:
+
+service munin-node restart

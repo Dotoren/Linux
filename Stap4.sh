@@ -1,9 +1,9 @@
 #!/bin/bash
+#installeren van syslog-ng
 
-#RESTART APACHE:
+sudo apt-get update
+sudo apt-get install syslog-ng
 
-service apache2 restart
-
-#RESTART MUNIN:
-
-service munin-node restart
+#installeren van salt master en minion op de hoofdserver
+sudo apt-get install salt-master
+sudo apt-get install salt-minion
