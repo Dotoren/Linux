@@ -1,3 +1,0 @@
-mkdir gitrepo
-cd gitrepo/
-git clone ....GITPATH.git.....

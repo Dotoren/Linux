@@ -1,4 +1,5 @@
 #!/bin/bash
 
-#install git
-sudo apt-get install git-core
+#INSTALLING PACKAGES FOR SALTSTACK OP MINION
+
+apt-get install salt-minion
