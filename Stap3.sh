@@ -2,7 +2,7 @@
 
 #RESTART APACHE:
 
-service apache2 restart
+service apache2 restart &&
 
 #RESTART MUNIN:
 

@@ -7,8 +7,5 @@ sudo -s &&
 sudo apt-get -y update &&
 echo "update succes"
 sudo apt-get -y upgrade &&
-echo "upgrade succes"
-
-git clone https://github.com/Dotoren/Linux.git &&
 
 echo "stap 1 succes"
