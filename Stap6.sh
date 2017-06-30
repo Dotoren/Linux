@@ -2,4 +2,6 @@
 
 #INSTALLING PACKAGES FOR SALTSTACK OP MINION
 
-apt-get install salt-minion
+apt-get install salt-minion &&
+
+echo "stap 6 succes"

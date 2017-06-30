@@ -12,4 +12,6 @@ apt-cache policy docker-ce &&
 
 sudo apt-get install -y docker-ce &&
 
-sudo systemctl status docker
+sudo systemctl status docker &&
+
+echo "stap 5 succes"
